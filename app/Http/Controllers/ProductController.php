@@ -46,7 +46,6 @@ class ProductController extends Controller
                 unset($cart[$request->id]);
                 session()->put('cart', $cart);
             }
-          
         }
     }
 

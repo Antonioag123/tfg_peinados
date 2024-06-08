@@ -49,7 +49,6 @@ Route::put('/event/update/{id}',[ScheduleController::class,'event_update'])->nam
 // Products
 Route::resource('/products',ProductController::class);
 Route::post('/products/addProduct/{id}',[ProductController::class,'addProduct'])->name('products.addProduct');
-
 ///////////////////////////////
 
 ///////////////////////////////

@@ -25,6 +25,11 @@
                 <div id="calendar" ></div>
             </div>
         </div>
+        <div class="row justify-content-end">
+            <div class="col-md-3 mt-5">
+                <h5><strong>Phone: 656-765-676</strong> </h5>
+            </div>
+        </div>
     </div>
 {{-- cdn schedule. Podremos cargar FullCalendar y sus dependencias --}}
 <script src="

@@ -8,7 +8,6 @@ use App\Models\Payment;
 
 class PaypalController extends Controller
 {
-
     ////////////////////////////////////////
     //PAYPAL
     public function paypal(Request $request)
@@ -24,7 +23,7 @@ class PaypalController extends Controller
         session()->put('product_name', $request->product_name);
         session()->put('quantity', $request->quantity);
 
-        // Creo una orden de pago en Paypalc on los detalles del producto
+        // Creo una orden de pago en Paypal con los detalles del producto
         $response = $provider->createOrder([
             "intent" => "CAPTURE", 
             "application_context" => [
@@ -44,6 +43,7 @@ class PaypalController extends Controller
         if (isset($response['id']) && $response['id'] != null) {
             foreach ($response['links'] as $link) {
                 if ($link['rel'] === 'approve') {
+                    // Con away PODEMOS REDIRIGIR A UNA URL EXTERNA (fuera del dominio de la aplicacion)
                     return redirect()->away($link['href']);
                 }
             }
@@ -52,7 +52,6 @@ class PaypalController extends Controller
             return redirect()->route('cancel');
         }
     }
-
 
     public function success(Request $request)
     {
@@ -84,10 +83,10 @@ class PaypalController extends Controller
 
             $payment->save();
 
-            // Elimina el nombre del producto de la sesión
-            // session()->forget($product_name);
-            
-            return redirect()->route('cart.listar');
+            // Elimina los productos de sesion
+            session()->forget(['cart', 'product_name', 'quantity']);
+   
+            return redirect()->route('cart.listar')->with('success', 'Operación realizada con éxito');
         } else {
             return redirect()->route('cancel');
         }

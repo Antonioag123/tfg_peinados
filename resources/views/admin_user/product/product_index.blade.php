@@ -32,7 +32,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ $product->name }}</h5>
                                 <p class="card-text">{{ $product->description }}</p>
-                                <p class="card-text"><strong>Price: {{ $product->price }} €</strong></p>
+                                <p class="card-text"><strong>Price: {{ $product->price }} $</strong></p>
                                 <div class="d-grid gap-2 d-md-block">
                                     <button type="submit" class="btn btn-outline-secondary add_cart">
                                         <i class="bi bi-plus-lg"></i> Add to cart

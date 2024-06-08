@@ -45,13 +45,13 @@
                                     <input type="hidden" name="product_name" value="{{ $value['name'] }}">
                                     <input type="hidden" name="quantity" value="1">
                                     @canany(['isAdmin', 'isUser'])
-                                        <button type="submit">Pay with PayPal</button>
+                                        <button type="submit" class="btn btn-outline-primary">Pay with PayPal</button>
                                     @endcanany
                                 </form>
                             </td>
                             <td>
                                 
-                                <a class="btn btn-outline-danger btn-sm delete_product"><i class="bi bi-trash"></i></a>
+                                <a class="btn btn-outline-danger delete_product"><i class="bi bi-trash"></i></a>
                                 
                             </td>
                         </tr>
@@ -61,13 +61,26 @@
                 <td align="right" colspan="2">Total:</td>
                 <td class="text-center" id="total"></td>
 
-
+                @if(session('success'))
+                    <div id="success-message" style="display:none;">{{ session('success') }}</div>
+                @endif       
             </tbody>
         </table>
     </div>
     <script type="text/javascript">
         // Una vez se ha cargado el contenido
         document.addEventListener('DOMContentLoaded', function() {
+
+            // Condicional para si he pagado correctamente por paypal
+            if (document.getElementById('success-message')) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Éxito',
+                    text: document.getElementById('success-message').innerText,
+                    confirmButtonText: 'Aceptar'
+                });
+            }
+
 
             /////////////////////////////
             // << AVISO >> SOLO PUEDO METER UN PRODUCTO,
@@ -129,6 +142,7 @@
                                     text: "Your file has been deleted.",
                                     icon: "success"
                                 });
+                                // Recarga pagina
                                 window.location.reload();
                             }
                         });
